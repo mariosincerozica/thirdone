@@ -1,0 +1,25 @@
+✔ Inserir
+
+POST → http://localhost:8080/usuarios
+{
+  "name": "Mario",
+  "lastname": "Sincero",
+  "email": "mario@example.com"
+}
+
+
+✔ Listar
+
+GET → http://localhost:8080/usuarios
+
+✔ Selecionar por ID
+
+GET → http://localhost:8080/usuarios/1
+
+✔ Atualizar
+
+PUT → http://localhost:8080/usuarios/1
+
+✔ Deletar
+
+DELETE → http://localhost:8080/usuarios/1
