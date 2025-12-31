@@ -15,8 +15,6 @@ public class UsuarioController {
 
     private final UsuarioService service;
 
-    @Value("${app.projeto.nome}")
-	private String testeValor;
     
     public UsuarioController(UsuarioService service) {
         this.service = service;
@@ -24,9 +22,6 @@ public class UsuarioController {
 
     @GetMapping
     public List<Usuario> listar() {
-    	
-    	System.out.println(testeValor);
-    	
     	
         return service.listar();
     }
