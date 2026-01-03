@@ -2,9 +2,9 @@
 
 POST → http://localhost:8080/usuarios
 {
-  "name": "Mario",
-  "lastname": "Sincero",
-  "email": "mario@example.com"
+"name": "Mario",
+"lastname": "Sincero",
+"email": "mario@example.com"
 }
 
 
@@ -23,3 +23,72 @@ PUT → http://localhost:8080/usuarios/1
 ✔ Deletar
 
 DELETE → http://localhost:8080/usuarios/1
+
+
+
+--- para executar comandos do docker 
+
+
+01 - Para criar o container. Já temos o docker-compose com as informações do container.
+então seria apenas executar uma vez o comando para criar:
+**
+docker build -t thirdone:1.0.0 .
+*
+02 - para executar o container criado. Adaptei uma execução de produção para executar o de dev
+
+o chat gpt colocou um exemplo para dev, em que pega os dados do arquivo .env
+
+docker run -d \
+  --name auth-api-dev \
+  --env-file .env \
+  -p 8080:8080 \
+  auth-api:1.0.0
+
+
+** como deveria ser o arquivo .env
+
+SPRING_PROFILES_ACTIVE=dev
+DB_URL=jdbc:postgresql://localhost:5432/auth
+DB_USER=auth
+DB_PASSWORD=auth
+JWT_SECRET=dev-secret
+
+**
+
+
+** temos a opção sem o .env
+
+docker run -d \
+  --name auth-api-dev \
+  -e SPRING_PROFILES_ACTIVE=dev \
+  -e DB_URL=jdbc:postgresql://localhost:5432/auth \
+  -e DB_USER=auth \
+  -e DB_PASSWORD=auth \
+  -e JWT_SECRET=dev-secret \
+  -p 8080:8080 \
+  auth-api:1.0.0
+
+**
+
+agora a opção dev que vai ser base para prod é a seguinte:
+
+**
+
+export DB_USER=db_user_thirdone
+export DB_PASSWORD=db_password_thirdone
+
+docker run -d \
+  --name thirdone-prod \
+  -e SERVER_PORT=8081 \
+  -e SPRING_PROFILES_ACTIVE=dev \
+  -e DB_URL=jdbc:postgresql://localhost:5432/appdb  \
+  -e DB_DRIVER=org.postgresql.Driver \
+  -e DB_USER=appuser \
+  -e DB_PWD=apppass \
+  --restart=always \
+  -p 8081:8081 \
+  thirdone:1.0.0
+
+**
+
+psql -h localhost -p 5432 -U appuser -d appdb
