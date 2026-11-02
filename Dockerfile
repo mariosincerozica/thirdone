@@ -1,5 +1,5 @@
 # Estágio 1: Build da aplicação com Maven
-FROM maven:3.9-eclipse-temurin-17 AS build
+FROM maven:3.9-eclipse-temurin-25 AS build
 WORKDIR /app
 
 # Copia apenas os arquivos de dependência primeiro para aproveitar o cache
@@ -13,7 +13,7 @@ COPY src src
 RUN ./mvnw clean package -DskipTests
 
 # Estágio 2: Imagem leve de execução (JRE)
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 WORKDIR /app
 
 # Cria usuário não-root para segurança

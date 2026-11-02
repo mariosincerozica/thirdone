@@ -1,3 +1,5 @@
+Requisito de runtime: Java 25 (LTS). O Dockerfile usa Java 25 nas etapas de build e execução.
+
 ✔ Inserir
 
 POST → http://localhost:8080/usuarios
