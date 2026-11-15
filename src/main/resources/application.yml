@@ -1,0 +1,66 @@
+# ==========================================
+# 1. Configurações Globais (Comuns a todos os perfis)
+# ==========================================
+spring:
+  application:
+    name: thirdone # Defina o nome do seu projeto aqui
+
+---
+# ==========================================
+# 2. Perfil de Desenvolvimento (dev)
+# ==========================================
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:postgresql://192.168.100.237:5432/testdb
+    username: auth
+    password: auth
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+---
+# ==========================================
+# 3. Configuração OpenTelemetry
+# ==========================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, prometheus
+  otlp:
+    metrics:
+      export:
+        # Aponta para o IP da sua VM e a porta gRPC (4317) do OpenTelemetry Collector
+        url: "http://192.168.100.237:4318/v1/metrics"
+        step: 10s
+        # Garanta que o tipo de transporte está configurado como gRPC
+        transport: grpc
+---
+# ==========================================
+# 3. Perfil de Produção (prod - Exemplo seguro)
+# ==========================================
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:prod_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate # Em produção, nunca use update!
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
