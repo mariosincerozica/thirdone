@@ -73,4 +73,15 @@ spring:
       hibernate:
         format_sql: false
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
+management:
+  server:
+    port: 8081 # Opcional: isola o Actuator em outra porta (recomendado em produção)
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: never
+  endpoints:
+    web:
+      exposure:
+        include: health,info
