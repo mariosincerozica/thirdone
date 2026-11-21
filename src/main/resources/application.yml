@@ -42,6 +42,8 @@ otel:
     otlp:
       # Aponta para o IP da sua VM e a porta gRPC (4317) do OpenTelemetry Collector
       endpoint: "http://192.168.100.237:4317"
+      logs:
+        endpoint: "http://192.168.100.237:4317"
       protocol: grpc
   metrics:
     exporter: otlp
