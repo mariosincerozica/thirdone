@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ikn-pre
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: thirdone
+  namespace: ikn-pre
+  labels:
+    app: thirdone
+    version: 1.0.1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: thirdone
+  template:
+    metadata:
+      labels:
+        app: thirdone
+        version: 1.0.1
+    spec:
+      containers:
+        - name: thirdone
+          image: thirdone:1.0.1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "dev"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 25
+            periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: thirdone
+  namespace: ikn-pre
+  labels:
+    app: thirdone
+spec:
+  selector:
+    app: thirdone
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
