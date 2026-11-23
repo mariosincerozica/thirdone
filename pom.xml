@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.mario</groupId>
 	<artifactId>thirdone</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<name>thirdone</name>
 	<description>Crud para estudar react</description>
 	<url />
