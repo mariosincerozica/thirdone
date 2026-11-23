@@ -1,6 +1,6 @@
 ✔ Inserir
 
-POST → http://localhost:8080/usuarios
+POST → http://localhost:8080/v1/usuarios
 {
 "name": "Mario",
 "lastname": "Sincero",
@@ -10,19 +10,19 @@ POST → http://localhost:8080/usuarios
 
 ✔ Listar
 
-GET → http://localhost:8080/usuarios
+GET → http://localhost:8080/v1/usuarios
 
 ✔ Selecionar por ID
 
-GET → http://localhost:8080/usuarios/1
+GET → http://localhost:8080/v1/usuarios/1
 
 ✔ Atualizar
 
-PUT → http://localhost:8080/usuarios/1
+PUT → http://localhost:8080/v1/usuarios/1
 
 ✔ Deletar
 
-DELETE → http://localhost:8080/usuarios/1
+DELETE → http://localhost:8080/v1/usuarios/1
 
 
 
@@ -92,3 +92,7 @@ docker run -d \
 **
 
 psql -h localhost -p 5432 -U appuser -d appdb
+
+
+testar no act para fazer deploy
+act workflow_dispatch -W .github/workflows/deploy-thirdone.yml -P ubuntu-latest=-self-hosted
