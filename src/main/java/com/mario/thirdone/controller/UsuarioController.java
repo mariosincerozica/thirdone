@@ -3,7 +3,6 @@ package com.mario.thirdone.controller;
 import com.mario.thirdone.model.Usuario;
 import com.mario.thirdone.service.UsuarioService;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
