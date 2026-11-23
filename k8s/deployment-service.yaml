@@ -10,7 +10,7 @@ metadata:
   namespace: ikn-pre
   labels:
     app: thirdone
-    version: 1.0.1
+    version: 1.0.2
 spec:
   replicas: 1
   selector:
@@ -20,11 +20,11 @@ spec:
     metadata:
       labels:
         app: thirdone
-        version: 1.0.1
+        version: 1.0.2
     spec:
       containers:
         - name: thirdone
-          image: thirdone:1.0.1
+          image: thirdone:1.0.2
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
