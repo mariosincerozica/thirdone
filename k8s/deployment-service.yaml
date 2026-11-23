@@ -25,7 +25,7 @@ spec:
       containers:
         - name: thirdone
           image: thirdone:1.0.2
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent  #IfNotPresent: baixa imagem da internet se não existir  #Never: Nunca baixar da internet
           ports:
             - containerPort: 8080
           env:
